@@ -88,6 +88,57 @@ The Community Build is free and open source. The wider SonarQube line applies th
 
 See the [product page](https://www.sonarsource.com/products/sonarqube/server/) for a full comparison.
 
+## Working with this fork
+
+This fork adds explicit long-lived branch analysis to SonarQube Community Build. It supports
+`sonar.branch.name`; pull-request analysis and decoration are not included. See
+[Community branch analysis](docs/community-branch-analysis.md) for behavior, current scope, and implementation notes.
+
+### Clone and build
+
+The build requires Java 21. Clone the fork and create a distribution from the repository root:
+
+```shell
+git clone https://github.com/bobcowher/sonarqube.git
+cd sonarqube
+./gradlew :sonar-application:zip
+```
+
+The resulting archive is written to `sonar-application/build/distributions/`. Unzip it and run the platform-specific
+launcher from its `bin` directory. The community branch extension is already bundled in the distribution; do not
+install a separate branch plugin or Java agent.
+
+Analyze the main branch once before sending an additional branch:
+
+```shell
+sonar-scanner -Dsonar.projectKey=my-project
+sonar-scanner -Dsonar.projectKey=my-project -Dsonar.branch.name=feature/my-change
+```
+
+### Keep the fork current
+
+Use `origin` for this fork and `upstream` for the SonarSource repository:
+
+```shell
+git remote add upstream https://github.com/SonarSource/sonarqube.git
+git fetch upstream
+git rebase upstream/master
+```
+
+Branch support uses internal SonarQube scanner and server extension points. After rebasing, rebuild the distribution
+and run the focused tests before pushing:
+
+```shell
+./gradlew \
+  :plugins:sonar-community-branch-plugin:test \
+  :server:sonar-webserver-webapi:test \
+  :server:sonar-ce-task-projectanalysis:test \
+  :sonar-application:zip
+```
+
+When resolving an upstream conflict, preserve all four parts of the feature: the bundled scanner extension, report
+submission support in the web server, branch metadata loading in the compute engine, and branch feature registration.
+
 ## Links
 
 - [Website](https://www.sonarsource.com/products/sonarqube)

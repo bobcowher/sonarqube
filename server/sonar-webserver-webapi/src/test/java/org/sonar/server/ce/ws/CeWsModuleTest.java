@@ -21,6 +21,7 @@ package org.sonar.server.ce.ws;
 
 import org.junit.Test;
 import org.sonar.core.platform.ListContainer;
+import org.sonar.server.ce.queue.CommunityBranchSupportDelegate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,6 +31,8 @@ public class CeWsModuleTest {
   public void verify_count_of_added_components() {
     ListContainer container = new ListContainer();
     new CeWsModule().configure(container);
-    assertThat(container.getAddedObjects()).hasSize(20);
+    assertThat(container.getAddedObjects())
+      .hasSize(21)
+      .contains(CommunityBranchSupportDelegate.class);
   }
 }

@@ -60,6 +60,7 @@ import org.sonar.ce.task.projectanalysis.taskprocessor.HistoryPurgeTaskModule;
 import org.sonar.ce.task.projectanalysis.taskprocessor.IssueSyncTaskModule;
 import org.sonar.ce.taskprocessor.CeProcessingScheduler;
 import org.sonar.ce.taskprocessor.CeTaskProcessorModule;
+import org.sonar.core.config.CommunityBranchProperties;
 import org.sonar.core.config.CorePropertyDefinitions;
 import org.sonar.core.documentation.DefaultDocumentationLinkGenerator;
 import org.sonar.core.extension.CoreExtensionRepositoryImpl;
@@ -494,6 +495,8 @@ public class ComputeEngineContainerImpl implements ComputeEngineContainer {
       GraphQlClient.class
 
     );
+
+    level4Container.add(CommunityBranchProperties.definitions().toArray());
 
     // registered via users-server-app
     level4Container.add(toArray(UsersServerComponents.components()));

@@ -21,12 +21,14 @@ package org.sonar.server.ce.ws;
 
 import org.sonar.core.platform.Module;
 import org.sonar.server.ce.queue.BranchSupport;
+import org.sonar.server.ce.queue.CommunityBranchSupportDelegate;
 import org.sonar.server.ce.queue.ReportSubmitter;
 
 public class CeWsModule extends Module {
   @Override
   protected void configureModule() {
     add(
+      CommunityBranchSupportDelegate.class,
       BranchSupport.class,
       ReportSubmitter.class,
 

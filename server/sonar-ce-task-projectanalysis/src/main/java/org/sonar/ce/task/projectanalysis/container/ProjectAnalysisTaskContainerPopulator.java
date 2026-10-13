@@ -31,6 +31,7 @@ import org.sonar.ce.task.projectanalysis.api.posttask.PostProjectAnalysisTasksEx
 import org.sonar.ce.task.projectanalysis.component.BranchComponentUuidsDelegate;
 import org.sonar.ce.task.projectanalysis.component.BranchLoader;
 import org.sonar.ce.task.projectanalysis.component.BranchPersisterImpl;
+import org.sonar.ce.task.projectanalysis.component.CommunityBranchLoaderDelegate;
 import org.sonar.ce.task.projectanalysis.component.ConfigurationRepositoryImpl;
 import org.sonar.ce.task.projectanalysis.component.DisabledComponentsHolderImpl;
 import org.sonar.ce.task.projectanalysis.component.FileStatusesImpl;
@@ -355,6 +356,7 @@ public final class ProjectAnalysisTaskContainerPopulator implements ContainerPop
       // views
       ViewIndex.class,
 
+      CommunityBranchLoaderDelegate.class,
       BranchLoader.class,
       MeasureToMeasureDto.class,
       SmallChangesetQualityGateSpecialCase.class,

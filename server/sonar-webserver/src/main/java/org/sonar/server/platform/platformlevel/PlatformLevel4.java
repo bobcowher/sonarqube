@@ -58,6 +58,7 @@ import org.sonar.ce.task.purgehistory.HistoryPurgeExecutorServiceImpl;
 import org.sonar.ce.task.purgehistory.HistoryPurgeInitializer;
 import org.sonar.ce.task.purgehistory.HistoryPurgePropertyChangeHandler;
 import org.sonar.ce.task.purgehistory.HistoryPurgeSchedulerImpl;
+import org.sonar.core.config.CommunityBranchProperties;
 import org.sonar.core.extension.CoreExtensionsInstaller;
 import org.sonar.core.language.LanguagesProvider;
 import org.sonar.core.metric.SoftwareQualitiesMetrics;
@@ -84,6 +85,7 @@ import org.sonar.server.authentication.ws.AuthenticationWsModule;
 import org.sonar.server.badge.ws.ProjectBadgesWsModule;
 import org.sonar.server.batch.BatchWsModule;
 import org.sonar.server.branch.BranchFeatureProxyImpl;
+import org.sonar.server.branch.CommunityBranchFeatureExtension;
 import org.sonar.server.branch.ws.BranchWsModule;
 import org.sonar.server.ce.CeModule;
 import org.sonar.server.ce.projectdump.ProjectExportWsModule;
@@ -744,6 +746,7 @@ public class PlatformLevel4 extends PlatformLevel {
       new ProjectExportWsModule(),
 
       // Branch
+      CommunityBranchFeatureExtension.class,
       BranchFeatureProxyImpl.class,
 
       // Project badges
@@ -886,6 +889,8 @@ public class PlatformLevel4 extends PlatformLevel {
 
       // sca-provided capabilities
       DefaultScaDataSourceImpl.class);
+
+    addAll(CommunityBranchProperties.definitions());
 
     // registered via users-server-app
     addAll(UsersServerComponents.components());

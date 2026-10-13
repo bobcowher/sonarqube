@@ -8,3 +8,8 @@ See LICENSE.txt file for details of the applicable license.
 
 For further legal information, see https://sonarsource.com/legal/
 
+Community branch analysis includes code derived from SonarQube Community Branch Plugin.
+Copyright (C) 2019-2026 Michael Clarke.
+Licensed under the GNU Lesser General Public License, version 3 or later.
+https://github.com/mc1arke/sonarqube-community-branch-plugin
+

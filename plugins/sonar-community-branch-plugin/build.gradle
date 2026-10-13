@@ -1,0 +1,33 @@
+dependencies {
+  compileOnly 'org.apache.commons:commons-lang3'
+  compileOnly 'org.sonarsource.api.plugin:sonar-plugin-api'
+  compileOnly 'org.sonarsource.scanner.engine:sonar-scanner-engine-community'
+
+  testImplementation 'org.assertj:assertj-core'
+  testImplementation 'org.junit.jupiter:junit-jupiter-api'
+  testImplementation 'org.sonarsource.scanner.engine:sonar-scanner-engine-community'
+
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+jar {
+  manifest {
+    attributes(
+      'Plugin-Key': 'communityBranch',
+      'Plugin-Organization': 'SonarQube Community Build fork',
+      'Plugin-Version': project.version,
+      'Plugin-Class': 'org.sonar.communitybranch.CommunityBranchPluginBootstrap',
+      'Plugin-ChildFirstClassLoader': 'false',
+      'Sonar-Version': project.pluginApiVersion,
+      'SonarLint-Supported': 'false',
+      'Plugin-Name': 'Community Branch Support'
+    )
+  }
+}
+
+artifactoryPublish.skip = true
+
+test {
+  useJUnitPlatform()
+}
